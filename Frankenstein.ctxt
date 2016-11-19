@@ -1,0 +1,10 @@
+#BlueJ class context
+comment0.params=
+comment0.target=Frankenstein()
+comment1.params=statement
+comment1.target=int\ findKeyword(java.lang.String)
+comment2.params=
+comment2.target=java.lang.String\ getRandomResponse()
+comment3.params=statement
+comment3.target=java.lang.String\ returnResponse(java.lang.String)
+numComments=4
