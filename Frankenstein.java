@@ -1,14 +1,15 @@
 
 /**
- * Write a description of class Frankenstein here.
+ * Will look through the users responce and give an apropriate response.
  * 
- * @author (your name) 
- * @version (a version number or a date)
+ * @author Jacob Bratsman and Tim Degerness 
+ * @version 11/27/2016
  */
 public class Frankenstein
 {
+ 
     String[] keywords = {"elizabeth", "william", "henry", "justine", "geneva", "switzerland", "science", "frankenstein", "mary", "shelley", "sad", "depressed", "london", "england", "monster",
-        "wedding", "weather", "rain", "revenge", "appearance", "looks"};
+                            "wedding", "weather", "rain", "revenge", "appearance", "looks"};
         
     String[] responses = {"I know of Elizabeth Lavenza--my more than sister--the beautiful and adored companion of all my occupations and my pleasures",
                              "Poor William! Who that had seen him bright and joyous in his young beauty, but must weep over his untimely loss!", 
@@ -32,44 +33,170 @@ public class Frankenstein
                              "The monster had the most grotesque appearance I have ever laid eyes on.. he is truly a monster. Elizabeth was much more beautiful and thus was treated much better.",
                              "The monster had the most grotesque appearance I have ever laid eyes on.. he is truly a monster. Elizabeth was much more beautiful and thus was treated much better."};
                              
-    String[] randomResponses = {
-    "Tell me more of that which you speak.",
-    "I do not understand the intent of your speech.",
-    "Elaborate on your subject.",
-    "I am intrigued, please do tell me more",
-    "How might you follow through with this?",
-    "Why does this subject matter interest your mind?",
-    "You are of of the best conversationalists, please tell me more of that which you speak.",
-    "I must learn more about this subject matter."
-    };
-                             
-    public Frankenstein()
+    String[] randomResponses = {"Tell me more of that which you speak.",
+                                    "I do not understand the intent of your speech.",
+                                    "Elaborate on your subject.",
+                                    "I am intrigued, please do tell me more",
+                                    "How might you follow through with this?",  
+                                    "Why does this subject matter interest your mind?",
+                                    "You are of of the best conversationalists, please tell me more of that which you speak.",
+                                    "I must learn more about this subject matter."};              
+    public Frankenstein(){}
+    /**
+     * Will find the position of a string within a string
+     * 
+     * @param String where you are finding the keyword
+     * @param String of the keyword you are looking for
+     * @return The index of the keyword you are trying to find
+     */
+    private int findKeyword(String statement, String goal, int startPos)
     {
-        int x=5;
-    }
-    
-    public int findKeyword(String statement)
-    {
+        String phrase = statement.trim();
+        //  The only change to incorporate the startPos is in the line below
+        int psn = phrase.toLowerCase().indexOf(goal.toLowerCase(), startPos);
         
-        for (int i=0; i<keywords.length; i++)
+        //  Refinement--make sure the goal isn't part of a word 
+        while (psn >= 0) 
         {
-            if (statement.toLowerCase().indexOf(keywords[i])>0)
+            //  Find the string of length 1 before and after the word
+            String before = " ", after = " "; 
+            if (psn > 0)
             {
-                return i;
+                before = phrase.substring (psn - 1, psn).toLowerCase();
             }
+            if (psn + goal.length() < phrase.length())
+            {
+                after = phrase.substring(psn + goal.length(), psn + goal.length() + 1).toLowerCase();
+            }
+            
+            //  If before and after aren't letters, we've found the word
+            if (((before.compareTo ("a") < 0 ) || (before.compareTo("z") > 0))  //  before is not a letter
+                    && ((after.compareTo ("a") < 0 ) || (after.compareTo("z") > 0)))
+            {
+                return psn;
+            }
+            
+            //  The last position didn't work, so let's find the next, if there is one.
+            psn = phrase.indexOf(goal.toLowerCase(), psn + 1);
+            
         }
-        return -1;
         
+        return -1;
     }
-    
+    /**
+     * Generates a random number to choose from the random responses
+     * 
+     * @return Returns a string with a random response
+     */
     public String getRandomResponse(){
         int randnum = (int)(Math.random()*8);
         return randomResponses[randnum];
     }
-    
+    /**
+     * Will transpose a given responce with the phrase I want
+     * 
+     * @param String input that is to be transposed
+     * @return Returns the transposed statement
+     */
+    private String transformIWantToStatement(String statement)
+    {
+        //  Remove the final period, if there is one
+        statement = statement.trim();
+        String lastChar = statement.substring(statement.length() - 1);
+        if (lastChar.equals("."))
+        {
+            statement = statement.substring(0, statement.length() - 1);
+        }
+        int psn = findKeyword (statement, "I want to", 0);
+        String restOfStatement = statement.substring(psn + 9).trim();
+        return "I wanted to create life, but my ambitions turned into chaos, why would you want " + restOfStatement + "?";
+    }
+    /**
+     * Will transpose a given responce with the phrase you ___ me
+     * 
+     * @param String input that is to be transposed
+     * @return Returns the transposed statement
+     */
+    private String transformYouMeStatement(String statement)
+    {
+        //  Remove the final period, if there is one
+        statement = statement.trim();
+        String lastChar = statement.substring(statement
+                .length() - 1);
+        if (lastChar.equals("."))
+        {
+            statement = statement.substring(0, statement.length() - 1);
+        }
+        
+        int psnOfYou = findKeyword (statement, "you", 0);
+        int psnOfMe = findKeyword (statement, "me", psnOfYou + 3);
+        
+        String restOfStatement = statement.substring(psnOfYou + 3, psnOfMe).trim();
+        return "What makes you think that I " + restOfStatement + " you? The only thing on my mind is my creation who has been tormenting me since his creation.";
+    }
+    /**
+     * Will transpose a given responce with the phrase I ___ you
+     * 
+     * @param String input that is to be transposed
+     * @return Returns the transposed statement
+     */
+    private String transformIYouStatement(String statement)
+    {
+        //  Remove the final period, if there is one
+        statement = statement.trim();
+        String lastChar = statement.substring(statement
+                .length() - 1);
+        if (lastChar.equals("."))
+        {
+            statement = statement.substring(0, statement.length() - 1);
+        }
+        
+        int psnOfYou = findKeyword (statement, "I", 0);
+        int psnOfMe = findKeyword (statement, "you", psnOfYou + 2);
+        
+        String restOfStatement = statement.substring(psnOfYou + 2, psnOfMe).trim();
+        return "I don't see why you would " + restOfStatement + " me, I have done everything wrong.";
+    }
+    /**
+     * Generates the response by looking at the user statement or going to a random responce
+     * 
+     * @param String input of the user's statement
+     * @return Returns the response to give the user
+     */
     public String returnResponse(String statement) {
-        if (findKeyword(statement)>0) {
-            return responses[findKeyword(statement)];
+        if (statement.length() == 0)
+        {
+            return "Say something, please.";
+        }
+        
+        for(int i = 0; i < keywords.length; i++)
+        {
+            if (findKeyword(statement.toLowerCase(),keywords[i],0) >= 0) {
+                return responses[i];
+            }
+            else if (findKeyword(statement, "I want to", 0) >= 0)
+            {
+                return transformIWantToStatement(statement);
+            }
+
+
+            else
+            {
+                // Look for a two word (you <something> me)
+                // pa   ttern
+                int psn = findKeyword(statement, "you", 0);
+                int psn2 = findKeyword(statement, "I", 0);
+
+
+                if (psn >= 0  && findKeyword(statement, "me", psn) >= 0)
+                {
+                    return transformYouMeStatement(statement);
+                }
+                else if (psn2 >= 0 && findKeyword(statement, "you", psn2) >= 0)
+                {
+                    return transformIYouStatement(statement);
+                }
+            }
         }
         
         return getRandomResponse();

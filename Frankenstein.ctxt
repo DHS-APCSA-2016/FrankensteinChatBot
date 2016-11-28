@@ -1,10 +1,22 @@
 #BlueJ class context
 comment0.params=
 comment0.target=Frankenstein()
-comment1.params=statement
-comment1.target=int\ findKeyword(java.lang.String)
+comment1.params=statement\ goal\ startPos
+comment1.target=int\ findKeyword(java.lang.String,\ java.lang.String,\ int)
+comment1.text=\r\n\ Will\ find\ the\ position\ of\ a\ string\ within\ a\ string\r\n\ \r\n\ @param\ String\ where\ you\ are\ finding\ the\ keyword\r\n\ @param\ String\ of\ the\ keyword\ you\ are\ looking\ for\r\n\ @return\ The\ index\ of\ the\ keyword\ you\ are\ trying\ to\ find\r\n
 comment2.params=
 comment2.target=java.lang.String\ getRandomResponse()
+comment2.text=\r\n\ Generates\ a\ random\ number\ to\ choose\ from\ the\ random\ responses\r\n\ \r\n\ @return\ Returns\ a\ string\ with\ a\ random\ response\r\n
 comment3.params=statement
-comment3.target=java.lang.String\ returnResponse(java.lang.String)
-numComments=4
+comment3.target=java.lang.String\ transformIWantToStatement(java.lang.String)
+comment3.text=\r\n\ Will\ transpose\ a\ given\ responce\ with\ the\ phrase\ I\ want\r\n\ \r\n\ @param\ String\ input\ that\ is\ to\ be\ transposed\r\n\ @return\ Returns\ the\ transposed\ statement\r\n
+comment4.params=statement
+comment4.target=java.lang.String\ transformYouMeStatement(java.lang.String)
+comment4.text=\r\n\ Will\ transpose\ a\ given\ responce\ with\ the\ phrase\ you\ ___\ me\r\n\ \r\n\ @param\ String\ input\ that\ is\ to\ be\ transposed\r\n\ @return\ Returns\ the\ transposed\ statement\r\n
+comment5.params=statement
+comment5.target=java.lang.String\ transformIYouStatement(java.lang.String)
+comment5.text=\r\n\ Will\ transpose\ a\ given\ responce\ with\ the\ phrase\ I\ ___\ you\r\n\ \r\n\ @param\ String\ input\ that\ is\ to\ be\ transposed\r\n\ @return\ Returns\ the\ transposed\ statement\r\n
+comment6.params=statement
+comment6.target=java.lang.String\ returnResponse(java.lang.String)
+comment6.text=\r\n\ Generates\ the\ response\ by\ looking\ at\ the\ user\ statement\ or\ going\ to\ a\ random\ responce\r\n\ \r\n\ @param\ String\ input\ of\ the\ user's\ statement\r\n\ @return\ Returns\ the\ response\ to\ give\ the\ user\r\n
+numComments=7
